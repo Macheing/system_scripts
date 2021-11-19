@@ -1,0 +1,203 @@
+diff and patch Cheat Sheet
+diff
+
+diff is used to find differences between two files. On its own, it’s a bit hard to use; instead, 
+use it with diff -u to find lines which differ in two files:
+
+diff -u
+
+diff -u is used to compare two files, line by line, and have the differing lines compared side-by-side in the same output. 
+See below:
+~$ cat menu1.txt 
+Menu1:
+
+Apples
+Bananas
+Oranges
+Pears
+
+~$ cat menu2.txt 
+Menu:
+
+Apples
+Bananas
+Grapes
+Strawberries
+
+~$ diff -u menu1.txt menu2.txt 
+--- menu1.txt   2019-12-16 18:46:13.794879924 +0900
++++ menu2.txt   2019-12-16 18:46:42.090995670 +0900
+@@ -1,6 +1,6 @@
+-Menu1:
++Menu:
+ 
+Apples
+ Bananas
+-Oranges
+-Pears
++Grapes
++Strawberries
+
+Patch
+
+Patch is useful for applying file differences. See the below example, which compares two files. 
+The comparison is saved as a .diff file, 
+which is then patched to the original file!
+~$ cat hello_world.txt 
+Hello World
+~$ cat hello_world_long.txt 
+Hello World
+
+It's a wonderful day!
+~$ diff -u hello_world.txt hello_world_long.txt 
+--- hello_world.txt     2019-12-16 19:24:12.556102821 +0900
++++ hello_world_long.txt        2019-12-16 19:24:38.944207773 +0900
+@@ -1 +1,3 @@
+ Hello World
++
++It's a wonderful day!
+~$ diff -u hello_world.txt hello_world_long.txt > hello_world.diff
+~$ patch < hello_world.diff 
+patching file hello_world.txt
+~$ cat hello_world.txt 
+Hello World
+
+It's a wonderful day!
+
+There are some other interesting patch and diff commands such as patch -p1, diff -r !
+
+Check them out in the following references:
+
+    http://man7.org/linux/man-pages/man1/diff.1.html
+
+    http://man7.org/linux/man-pages/man1/patch.1.html
+
+
+
+Advanced Git Cheat Sheet
+
+Commands			Explanation & Link
+
+git commit -a			Stages files automatically
+
+git log -p			Produces patch text
+
+git show			Shows various objects
+
+git diff			Is similar to the Linux `diff` command, and can show the differences in various commits
+
+git diff --staged		An alias to --cached, this will show all staged files compared to the named commit
+
+git add -p			Allows a user to interactively review patches to add to the current commit
+
+git mv				Similar to the Linux `mv` command, this moves a file
+
+git rm				Similar to the Linux `rm` command, this deletes, or removes a file
+
+There are many useful git cheatsheets online as well. Please take some time to research and study a few, such as this one.
+.gitignore files
+
+.gitignore files are used to tell the git tool to intentionally ignore some files in a given Git repository. 
+For example, this can be useful for configuration files or metadata files that a user may not want to check into the master branch. 
+Check out more at: https://git-scm.com/docs/gitignore.
+
+A few common examples of file patterns to exclude can be found here.
+
+
+
+Git Revert Cheat Sheet
+
+git checkout is effectively used to switch branches.
+
+git reset basically resets the repo, throwing away some changes. It’s somewhat difficult to understand, 
+so reading the examples in the documentation may be a bit more useful.
+
+There are some other useful articles online, which discuss more aggressive approaches to resetting the repo.
+
+git commit --amend 		is used to make changes to commits after-the-fact, which can be useful for making notes about a given commit.
+
+git commit -a --amend		amend previous commit messages.
+
+git revert 			makes a new commit which effectively rolls back a previous commit. It’s a bit like an undo command.
+
+				There are a few ways you can rollback commits in Git.
+
+There are some interesting considerations about how git object data is stored, such as the usage of sha-1. 
+
+Feel free to read more here:
+
+    https://en.wikipedia.org/wiki/SHA-1
+
+    https://github.blog/2017-03-20-sha-1-collision-detection-on-github-com/
+
+
+
+Git Branches and Merging Cheat Sheet
+
+Commands                  		Explanation & Link
+
+git branch               		Used to manage branches
+
+git branch <name>         		Creates the branch
+
+git branch -d <name>			Deletes the local branch
+
+git branch -D <name>			Forcibly deletes the branch
+
+git checkout <branch> 			Switches to a branch.
+
+git checkout -b <branch>		Creates a new branch and switches to it.
+
+git merge <branch> 			Merge joins branches together. 
+
+git merge --abort			If there are merge conflicts (meaning files are incompatible), 
+					--abort can be used to abort the merge action.
+
+git log --graph --oneline		This shows a summarized view of the commit history for a repo.
+
+git log --graph --oneline --all -4 	shows summarized view of latest history of 4 commits.
+
+
+Github or remote repository commands:
+
+Commands				Explanation & Link
+
+git clone URL				Git clone is used to clone a remote repository into a local workspace
+
+git push				Git push is used to push commits from your local repo to a remote repo
+
+git push -u <name> 	        	pushes latest snapshot of a file to remote repository 
+
+git push -u origin <branchname> 	pushes local file to remote repository.
+
+git pull				Git pull is used to fetch the newest updates from a remote repository and 
+					automatically merge the remote branch with the current local branch.
+
+git fetch				Downloads remote branches from remote repositories without merging the content with 
+					your current workspace automatically.
+
+git remote 				Lists remote repos
+
+git remote -v				List remote repos verbosely
+
+git remote show <name>			Describes a single remote repo
+
+git remote update			Fetches the most up-to-date objects
+
+git branch -r				Lists remote branches; can be combined with other branch arguments to manage remote branches
+
+git remote update			gets the contents of a remote branch without automatically merging, which of these commands should we use
+
+git push --delete origin 
+<branch name>  				deletes remote repository.
+
+git push -f				git push with the -f flag forcibly replaces the old commits with the new one and forces Git to push the 
+					current snapshot to the repo as it is. This can be dangerous as it can lead to remote changes being 
+					permanently lost and is not recommended unless you're pushing fixes to your own for
+
+git remote show origin			finds more information about a remote branch
+
+git rebase <branch name>		moves the current branch on top of the <branch name>
+
+git rebase -i master			squashes or pick scommit messages together.
+
