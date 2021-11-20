@@ -148,17 +148,3 @@ Zabbix				free open-source bandwidth monitoring application.
 Nagios Core 			a free open-source application used for Monitors Systems, Networks and Infrastructure.
 
 Cacti 				a network monitoring tool that uses PHP and runs in a browser window.
-
-
-
-
-
-
-
-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
-
-django_projects access token:
-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
-
-puppet_scripts access token:
-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
